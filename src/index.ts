@@ -96,15 +96,14 @@ class ExampleMentraOSApp extends AppServer {
       if (data.isFinal) {
         const summary = summarizeText(data.text);
 
-        // HUD에 요약 정보 표시 (3초)
-        session.layouts.showTextWall(summary, {
-          view: ViewType.MAIN,
-          durationMs: 3000
-        });
+    // 요약 + 원문 사이 개행 추가
+    const combined = `${summary}\n\n${data.text}`;
 
-        // 필요하면 원문도 잠깐 보이게 하려면 아래 라인을 유지/조절
-        // session.layouts.showTextWall("You said: " + data.text, { view: ViewType.SECONDARY, durationMs: 2000 });
-      }
+    session.layouts.showTextWall(combined, {
+      view: ViewType.MAIN,
+      durationMs: 9000,
+      });
+    }
     });
 
     session.events.onGlassesBattery((data) => {
